@@ -1,0 +1,638 @@
+/* 
+ * CSS файл для демонстрации базовых функций CSS
+ * Все стили прокомментированы для удобства изучения
+ */
+
+/* ===== БАЗОВЫЕ СТИЛИ И СБРОС ===== */
+
+/* 
+ * СБРОС СТАНДАРТНЫХ СТИЛЕЙ БРАУЗЕРА
+ * ДЛЯ ЧЕГО: Устранить различия в отображении между разными браузерами
+ * ПОЧЕМУ: Каждый браузер имеет свои стандартные значения margin/padding
+ * РЕЗУЛЬТАТ: Полный контроль над отступами и размерами элементов
+ */
+ * {
+  margin: 0; /* Обнуляем все внешние отступы */
+  padding: 0; /* Обнуляем все внутренние отступы */
+  box-sizing: border-box; /* Меняем модель расчета размеров элемента */
+}
+
+/* 
+ * ОБЪЯСНЕНИЕ box-sizing: border-box:
+ * - content-box (стандарт): width/height = только содержимое
+ * - border-box: width/height = содержимое + padding + border
+ * ПРИМЕР: Элемент width: 100px, padding: 20px, border: 5px
+ *   - content-box: общая ширина = 100 + 20*2 + 5*2 = 150px
+ *   - border-box: общая ширина = 100px (padding и border включены)
+ * ВЫВОД: border-box упрощает расчеты и предсказуемость размеров
+ */
+
+/* ===== CSS ПЕРЕМЕННЫЕ (Кастомные свойства) ===== */
+
+/* 
+ * СИСТЕМА CSS ПЕРЕМЕННЫХ
+ * ДЛЯ ЧЕГО: Централизованное управление повторяющимися значениями
+ * ПОЧЕМУ: Упрощает изменение темы, обеспечивает единообразие
+ * ОСОБЕННОСТИ: Наследуются, доступны во всем документе, динамически изменяемы
+ */
+:root {
+  /* ЦВЕТОВАЯ ПАЛИТРА - создает визуальную гармонию */
+  --primary-color: #4f46e5; /* Основной цвет бренда - индиго */
+  --secondary-color: #06d6a0; /* Вторичный цвет - изумрудный */
+  --accent-color: #ff6b6b; /* Акцентный цвет - коралловый */
+  --text-color: #2d3748; /* Цвет основного текста - темно-серый */
+  --bg-color: #f7fafc; /* Цвет фона страницы - светло-серый */
+  --card-bg: #ffffff; /* Цвет фона карточек - белый */
+
+  /* ТЕНИ - создают глубину и иерархию */
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* Стандартная тень */
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* Тень при наведении */
+
+  /* СКРУГЛЕНИЯ - смягчают внешний вид */
+  --border-radius: 12px; /* Для крупных элементов (секции, карточки) */
+  --border-radius-small: 8px; /* Для мелких элементов (кнопки, демо-блоки) */
+
+  /* ОТСТУПЫ - создают ритм и пропорции */
+  --spacing-small: 10px; /* Для близко расположенных элементов */
+  --spacing-medium: 20px; /* Стандартное расстояние между элементами */
+  --spacing-large: 30px; /* Для разделения крупных блоков */
+}
+
+/* ===== ОСНОВНЫЕ СТИЛИ СТРАНИЦЫ ===== */
+
+/* 
+ * СТИЛИ ДЛЯ ВСЕЙ СТРАНИЦЫ (body)
+ * ДЛЯ ЧЕГО: Задать базовые настройки документа
+ * ПОЧЕМУ: body является корневым контейнером видимого содержимого
+ */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Современный стек шрифтов */
+  line-height: 1.6; /* Оптимальный межстрочный интервал для читабельности */
+  color: var(--text-color); /* Используем переменную для цвета текста */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Красивый градиентный фон */
+  min-height: 100vh; /* Гарантирует, что фон займет минимум всю высоту окна */
+}
+
+/* 
+ * ОСНОВНОЙ КОНТЕЙНЕР
+ * ДЛЯ ЧЕГО: Центрировать контент и ограничить ширину
+ * ПОЧЕМУ: На широких экранах читать текст во всю ширину неудобно
+ */
+.container {
+  max-width: 1200px; /* Оптимальная ширина для удобства чтения */
+  margin: 0 auto; /* Автоматические отступы слева/справа = центрирование */
+  padding: var(--spacing-medium); /* Защитные отступы по краям */
+}
+
+/* ===== ШАПКА САЙТА ===== */
+
+/* 
+ * ШАПКА САЙТА - визитная карточка страницы
+ * ДЛЯ ЧЕГО: Представить основную тему и привлечь внимание
+ */
+.header {
+  text-align: center; /* Центрируем содержимое */
+  margin-bottom: 40px; /* Отделяем от основного контента */
+  padding: var(--spacing-large) var(--spacing-medium); /* Просторные отступы */
+  background: var(--card-bg); /* Контрастный белый фон */
+  border-radius: var(--border-radius); /* Скругленные углы */
+  box-shadow: var(--shadow); /* Тень для эффекта "поднятости" */
+}
+
+/* Главный заголовок - самый важный текст на странице */
+.header h1 {
+  font-size: 2.5rem; /* Крупный размер для акцента */
+  color: var(--primary-color); /* Основной цвет бренда */
+  margin-bottom: var(--spacing-small); /* Отступ перед подзаголовком */
+}
+
+/* Подзаголовок - дополнительная информация */
+.subtitle {
+  font-size: 1.2rem; /* Меньше чем заголовок, но больше основного текста */
+  color: #666; /* Приглушенный серый для второстепенного текста */
+  font-weight: 300; /* Легкое начертание для контраста с заголовком */
+}
+
+/* ===== ОСНОВНЫЕ СЕКЦИИ ===== */
+
+/* 
+ * СЕКЦИИ - тематические блоки контента
+ * ДЛЯ ЧЕГО: Группировать связанный контент
+ * ПОЧЕМУ: Улучшает навигацию и восприятие информации
+ */
+.section {
+  background: var(--card-bg); /* Белый фон для контраста с основным */
+  border-radius: var(--border-radius); /* Скругленные углы */
+  padding: var(--spacing-large); /* Внутренние отступы для дыхания */
+  margin-bottom: var(--spacing-large); /* Отступ между секциями */
+  box-shadow: var(--shadow); /* Легкая тень для разделения */
+  transition: transform 0.3s ease; /* Плавная анимация для интерактивности */
+}
+
+/* 
+ * ЭФФЕКТ ПРИ НАВЕДЕНИИ НА СЕКЦИЮ
+ * ДЛЯ ЧЕГО: Визуальная обратная связь для пользователя
+ * ПОЧЕМУ: Делает интерфейс живым и отзывчивым
+ */
+.section:hover {
+  transform: translateY(-5px); /* Легкий подъем для эффекта "нависания" */
+  box-shadow: var(--shadow-hover); /* Усиленная тень для глубины */
+}
+
+/* Заголовки секций - определяют тему блока */
+.section h2 {
+  color: var(--primary-color); /* Основной цвет для consistency */
+  margin-bottom: var(--spacing-medium); /* Отступ перед контентом */
+  font-size: 1.8rem; /* Крупный размер для иерархии */
+  border-bottom: 2px solid var(--secondary-color); /* Декоративная линия */
+  padding-bottom: var(--spacing-small); /* Пространство для линии */
+}
+
+/* Описание секции - поясняет содержание */
+.section-description {
+  color: #666; /* Приглушенный цвет для второстепенного текста */
+  margin-bottom: var(--spacing-medium); /* Отступ перед примерами */
+  font-style: italic; /* Курсив для визуального отличия */
+}
+
+/* ===== СЕТКА ПРИМЕРОВ ===== */
+
+/* 
+ * АДАПТИВНАЯ СЕТКА НА CSS GRID
+ * ДЛЯ ЧЕГО: Отзывчивое расположение карточек с примерами
+ * ПОЧЕМУ: CSS Grid идеален для двумерных раскладок
+ */
+.example-grid {
+  display: grid; /* Активируем CSS Grid */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Магия адаптивности */
+  gap: var(--spacing-medium); /* Расстояние между элементами */
+  margin-top: var(--spacing-medium); /* Отступ от заголовка секции */
+}
+
+/* 
+ * РАЗБОР grid-template-columns:
+ * - repeat(): функция повторения шаблона
+ * - auto-fit: автоматически подбирает количество колонок
+ * - minmax(300px, 1fr): минимальная ширина 300px, максимальная - 1fr
+ * - 1fr (fraction unit): занимает доступное пространство
+ * РЕЗУЛЬТАТ: На широких экранах - несколько колонок, на узких - одна
+ */
+
+/* 
+ * КАРТОЧКА ПРИМЕРА - контейнер для демонстрации
+ * ДЛЯ ЧЕГО: Изолировать и представить каждый пример
+ */
+.example-card {
+  text-align: center; /* Центрируем содержимое */
+  padding: var(--spacing-medium); /* Внутренние отступы */
+  border-radius: var(--border-radius-small); /* Скругленные углы */
+  background: var(--bg-color); /* Светлый фон для контраста */
+  transition: all 0.3s ease; /* Плавные анимации всех свойств */
+  border: 2px solid transparent; /* Прозрачная граница (резервируем место) */
+}
+
+/* Интерактивность карточки */
+.example-card:hover {
+  background: #e2e8f0; /* Изменение фона при наведении */
+  transform: scale(1.05); /* Легкое увеличение для эффекта */
+  border-color: var(--primary-color); /* Цветная граница */
+}
+
+/* Заголовок примера - название CSS свойства */
+.example-title {
+  font-weight: bold; /* Выделяем жирным */
+  color: var(--primary-color); /* Основной цвет */
+  margin: var(--spacing-small) 0; /* Отступы сверху и снизу */
+  font-size: 1.1rem; /* Чуть крупнее основного текста */
+}
+
+/* Описание примера - пояснение свойства */
+.example-description {
+  color: var(--text-color); /* Основной цвет текста */
+  font-size: 0.9rem; /* Чуть меньше основного текста */
+  line-height: 1.4; /* Уплотненный межстрочный интервал */
+}
+
+/* ===== ДЕМОНСТРАЦИОННЫЕ БЛОКИ ===== */
+
+/* 
+ * УНИВЕРСАЛЬНЫЕ СТИЛИ ДЛЯ ДЕМО-БЛОКОВ
+ * ДЛЯ ЧЕГО: Единообразное отображение всех примеров
+ * ПОЧЕМУ: Создает профессиональный и последовательный вид
+ */
+.demo-box {
+  padding: var(--spacing-large); /* Просторные отступы */
+  border-radius: var(--border-radius-small); /* Скругленные углы */
+  font-weight: bold; /* Выделение текста */
+  text-align: center; /* Центрирование содержимого */
+  min-height: 120px; /* Гарантированная высота для единообразия */
+  display: flex; /* Flexbox для легкого выравнивания */
+  align-items: center; /* Вертикальное центрирование */
+  justify-content: center; /* Горизонтальное центрирование */
+  margin-bottom: var(--spacing-small); /* Отступ снизу */
+}
+
+/* Текст внутри демо-блоков */
+.demo-text {
+  font-weight: 600; /* Полужирное начертание */
+}
+
+/* ===== СТИЛИ ДЛЯ РАЗДЕЛА ЦВЕТОВ ===== */
+
+/* Демонстрация background-color */
+.bg-color-demo {
+  background-color: var(--primary-color); /* Используем основную переменную */
+  color: white; /* Контрастный белый текст */
+}
+
+/* Демонстрация градиента */
+.gradient-demo {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  color: white; /* Белый текст для читабельности */
+}
+
+/* Демонстрация color свойства */
+.text-color-demo {
+  color: var(--accent-color); /* Акцентный цвет текста */
+  background: white; /* Белый фон для контраста */
+  border: 2px solid var(--accent-color); /* Граница в тон тексту */
+}
+
+/* ===== СТИЛИ ДЛЯ РАЗДЕЛА ТЕКСТА ===== */
+
+/* Демонстрация font-size */
+.font-size-demo {
+  background: #e9d8fd; /* Светло-фиолетовый фон */
+  flex-direction: column; /* Вертикальное расположение текстов */
+  gap: 10px; /* Расстояние между текстовыми блоками */
+}
+
+.size-small { font-size: 14px; }  /* Маленький текст */
+.size-medium { font-size: 18px; } /* Средний текст */
+.size-large { font-size: 24px; }  /* Крупный текст */
+
+/* Демонстрация text-align */
+.text-align-demo {
+  background: #c6f6d5; /* Светло-зеленый фон */
+  text-align: center; /* Выравнивание по центру */
+}
+
+/* Демонстрация font-weight */
+.font-weight-demo {
+  background: #fed7d7; /* Светло-красный фон */
+  flex-direction: column; /* Вертикальное расположение */
+  gap: 10px; /* Расстояние между элементами */
+}
+
+.weight-normal { font-weight: normal; } /* Обычное начертание */
+.weight-bold { font-weight: bold; }     /* Жирное начертание */
+
+/* ===== СТИЛИ ДЛЯ РАЗДЕЛА ОТСТУПОВ ===== */
+
+/* Демонстрация margin */
+.margin-demo {
+  background: #e2e8f0; /* Светло-серый фон */
+  border: 2px dashed #cbd5e0; /* Пунктирная граница для наглядности */
+  margin: 20px; /* Внешние отступы со всех сторон */
+}
+
+/* Демонстрация padding */
+.padding-demo {
+  background: #fed7d7; /* Светло-красный фон */
+  border: 2px solid #fc8181; /* Сплошная граница */
+  padding: 40px; /* Большие внутренние отступы */
+}
+
+/* Демонстрация width/height */
+.dimensions-demo {
+  background: #c6f6d5; /* Светло-зеленый фон */
+  width: 200px;  /* Фиксированная ширина */
+  height: 100px; /* Фиксированная высота */
+  margin: 0 auto; /* Центрирование блока */
+}
+
+/* Внутренний блок для демонстрации отступов */
+.inner-box {
+  background: var(--primary-color); /* Синий фон */
+  color: white; /* Белый текст */
+  padding: 10px; /* Внутренние отступы */
+  border-radius: 4px; /* Скругленные углы */
+}
+
+/* ===== СИСТЕМА ВКЛАДОК ===== */
+
+/* 
+ * СИСТЕМА ВКЛАДОК НА ЧИСТОМ CSS
+ * ДЛЯ ЧЕГО: Организовать дополнительный контент без перегрузки интерфейса
+ * ПОЧЕМУ: Работает без JavaScript - быстрее и надежнее
+ */
+.tabs-container {
+  margin-top: var(--spacing-large); /* Отступ от основной сетки */
+  border: 2px solid #e2e8f0; /* Граница вокруг системы вкладок */
+  border-radius: var(--border-radius-small); /* Скругленные углы */
+  overflow: hidden; /* Обрезаем содержимое для сохранения скруглений */
+}
+
+/* Скрываем radio-кнопки - используем только их функциональность */
+.tab-input {
+  display: none; /* Полностью скрываем от пользователя */
+}
+
+/* Заголовок вкладок - панель переключения */
+.tabs-header {
+  display: flex; /* Горизонтальное расположение кнопок */
+  background: #f8fafc; /* Светлый фон */
+  border-bottom: 1px solid #e2e8f0; /* Разделительная линия */
+}
+
+/* Кнопки вкладок - интерактивные элементы */
+.tab-btn {
+  flex: 1; /* Равномерное распределение пространства */
+  padding: 15px 20px; /* Внутренние отступы */
+  border: none; /* Убираем стандартные границы */
+  background: transparent; /* Прозрачный фон */
+  cursor: pointer; /* Указатель при наведении */
+  font-weight: 600; /* Полужирное начертание */
+  color: #64748b; /* Серый цвет для неактивных кнопок */
+  transition: all 0.3s ease; /* Плавные анимации */
+  border-bottom: 3px solid transparent; /* Место для индикатора */
+  text-align: center; /* Центрирование текста */
+}
+
+/* Эффект при наведении на кнопку */
+.tab-btn:hover {
+  background: #f1f5f9; /* Светлый фон */
+  color: var(--primary-color); /* Основной цвет */
+}
+
+/* ===== ЛОГИКА ВКЛАДОК НА ЧИСТОМ CSS ===== */
+
+/* 
+ * МАГИЯ CSS ВКЛАДОК БЕЗ JAVASCRIPT
+ * ПРИНЦИП: Используем :checked псевдокласс и соседний селектор (~)
+ * МЕХАНИЗМ:
+ * 1. Radio-кнопки скрыты, но связаны с лейблами (кнопками)
+ * 2. При клике на лейбл активируется соответствующая radio-кнопка
+ * 3. CSS показывает контент связанный с активной radio-кнопкой
+ */
+
+/* Активная кнопка вкладки для раздела цветов */
+#colors-tab1:checked ~ .tabs-header label[for='colors-tab1'],
+#colors-tab2:checked ~ .tabs-header label[for='colors-tab2'],
+#colors-tab3:checked ~ .tabs-header label[for='colors-tab3'] {
+  color: var(--primary-color); /* Основной цвет текста */
+  border-bottom-color: var(--primary-color); /* Цветной индикатор */
+  background: white; /* Белый фон для выделения */
+}
+
+/* Активная кнопка вкладки для раздела текста */
+#text-tab1:checked ~ .tabs-header label[for='text-tab1'],
+#text-tab2:checked ~ .tabs-header label[for='text-tab2'],
+#text-tab3:checked ~ .tabs-header label[for='text-tab3'] {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  background: white;
+}
+
+/* Активная кнопка вкладки для раздела отступов */
+#spacing-tab1:checked ~ .tabs-header label[for='spacing-tab1'],
+#spacing-tab2:checked ~ .tabs-header label[for='spacing-tab2'],
+#spacing-tab3:checked ~ .tabs-header label[for='spacing-tab3'] {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  background: white;
+}
+
+/* Содержимое вкладок - скрыто по умолчанию */
+.tab-content {
+  display: none; /* Скрываем все вкладки */
+  padding: var(--spacing-large); /* Внутренние отступы */
+  background: white; /* Белый фон */
+}
+
+/* Показываем контент активной вкладки для цветов */
+#colors-tab1:checked ~ #colors-content1,
+#colors-tab2:checked ~ #colors-content2,
+#colors-tab3:checked ~ #colors-content3 {
+  display: block; /* Отображаем выбранную вкладку */
+}
+
+/* Показываем контент активной вкладки для текста */
+#text-tab1:checked ~ #text-content1,
+#text-tab2:checked ~ #text-content2,
+#text-tab3:checked ~ #text-content3 {
+  display: block;
+}
+
+/* Показываем контент активной вкладки для отступов */
+#spacing-tab1:checked ~ #spacing-content1,
+#spacing-tab2:checked ~ #spacing-content2,
+#spacing-tab3:checked ~ #spacing-content3 {
+  display: block;
+}
+
+/* ===== СТИЛИ ДЛЯ СОДЕРЖИМОГО ВКЛАДОК ===== */
+
+/* Заголовок внутри вкладки */
+.tab-content h3 {
+  color: var(--primary-color); /* Основной цвет */
+  margin-bottom: var(--spacing-medium); /* Отступ снизу */
+  text-align: center; /* Центрирование */
+}
+
+/* Сетка для примеров внутри вкладок */
+.tab-examples {
+  display: grid; /* CSS Grid для адаптивности */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Автоподбор колонок */
+  gap: var(--spacing-medium); /* Расстояние между элементами */
+}
+
+/* Отдельный пример внутри вкладки */
+.tab-example {
+  text-align: center; /* Центрирование содержимого */
+  padding: var(--spacing-medium); /* Внутренние отступы */
+}
+
+/* Маленькие демо-блоки для вкладок */
+.demo-small {
+  padding: 25px 15px; /* Компактные отступы */
+  border-radius: var(--border-radius-small); /* Скругленные углы */
+  font-weight: 600; /* Полужирное начертание */
+  text-align: center; /* Центрирование текста */
+  min-height: 80px; /* Минимальная высота */
+  display: flex; /* Flexbox для выравнивания */
+  align-items: center; /* Вертикальное центрирование */
+  justify-content: center; /* Горизонтальное центрирование */
+  margin-bottom: var(--spacing-small); /* Отступ снизу */
+  border: 2px solid #e2e8f0; /* Светлая граница */
+}
+
+/* Комментарии к CSS коду */
+.code-comment {
+  color: #666; /* Серый цвет для второстепенного текста */
+  font-style: italic; /* Курсив для визуального отличия */
+  margin: 5px 0; /* Компактные отступы */
+  font-size: 0.9rem; /* Чуть меньший размер */
+}
+
+/* Блок с CSS кодом */
+code {
+  display: block; /* Блочное отображение */
+  margin-top: var(--spacing-small); /* Отступ сверху */
+  padding: 10px; /* Внутренние отступы */
+  background: #f8fafc; /* Светлый фон */
+  border-radius: 6px; /* Скругленные углы */
+  font-family: 'Courier New', monospace; /* Моноширинный шрифт как в редакторах */
+  font-size: 0.9rem; /* Компактный размер */
+  color: #334155; /* Цвет текста */
+  border-left: 3px solid var(--primary-color); /* Акцентная линия слева */
+}
+
+/* ===== СТИЛИ ДЛЯ ПРИМЕРОВ ВО ВКЛАДКАХ ===== */
+
+/* Вкладка "Форматы цветов" - разные способы задания цветов */
+.hex-format { background: #ff6b6b; color: white; } /* HEX формат */
+.rgb-format { background: rgb(79, 70, 229); color: white; } /* RGB формат */
+.named-color { background: red; color: white; } /* Именованный цвет */
+
+/* Вкладка "Прозрачность" - работа с opacity и alpha-каналом */
+.opacity-full { background: #4f46e5; color: white; opacity: 1; } /* Полная непрозрачность */
+.opacity-half { background: #4f46e5; color: white; opacity: 0.5; } /* Полупрозрачность */
+.rgba-demo { background: rgba(255, 0, 0, 0.3); } /* RGBA с альфа-каналом */
+
+/* Вкладка "Градиенты" - различные типы градиентов */
+.linear-gradient-demo { background: linear-gradient(blue, pink); color: black; } /* Линейный */
+.radial-gradient-demo { background: radial-gradient(circle, red, yellow); } /* Радиальный */
+.angled-gradient-demo { background: linear-gradient(45deg, blue, red); color: white; } /* Под углом */
+
+/* Вкладка "Стили текста" - текстовые декорации */
+.text-underline { text-decoration: underline; background: #fef3c7; } /* Подчеркивание */
+.text-italic { font-style: italic; background: #fef3c7; } /* Курсив */
+.text-uppercase { text-transform: uppercase; background: #fef3c7; } /* Заглавные буквы */
+
+/* Вкладка "Шрифты" - различные семейства шрифтов */
+.font-serif { font-family: Georgia, serif; background: #dbeafe; } /* С засечками */
+.font-sans { font-family: Arial, sans-serif; background: #dbeafe; } /* Без засечек */
+.font-mono { font-family: 'Courier New', monospace; background: #dbeafe; } /* Моноширинный */
+
+/* Вкладка "Интервалы" - расстояния в тексте */
+.letter-spacing-example { letter-spacing: 3px; background: #bbf7d0; } /* Межбуквенное */
+.word-spacing-example { word-spacing: 10px; background: #bbf7d0; } /* Межсловное */
+.line-height-example { line-height: 2; background: #bbf7d0; text-align: left; padding: 15px; } /* Межстрочное */
+
+/* Вкладка "Единицы измерения" - разные CSS единицы */
+.unit-px { margin: 20px; background: #fecaca; } /* Пиксели - абсолютные */
+.unit-em { padding: 2em; background: #bbf7d0; font-size: 16px; } /* EM - относительно родителя */
+.unit-rem { font-size: 2rem; background: #bfdbfe; } /* REM - относительно корня */
+
+/* Вкладка "Направления" - управление отступами по сторонам */
+.margin-top-demo { margin-top: 30px; background: #fef3c7; } /* Верхний внешний отступ */
+.padding-left-demo { padding-left: 40px; background: #bbf7d0; text-align: left; } /* Левый внутренний отступ */
+.mixed-margin-demo { margin: 10px 20px 30px 40px; background: #bfdbfe; } /* Смешанные отступы */
+
+/* Вкладка "Box-Sizing" - модели расчета размеров */
+.content-box-example {
+  box-sizing: content-box; /* Стандартная модель */
+  width: 100px; /* Ширина без учета padding и border */
+  padding: 20px; /* Внутренние отступы */
+  border: 5px solid #fecaca; /* Граница */
+  background: #fef3c7; /* Фон */
+  margin: 0 auto; /* Центрирование */
+}
+
+.border-box-example {
+  box-sizing: border-box; /* Удобная модель */
+  width: 100px; /* Ширина включая padding и border */
+  padding: 20px; /* Внутренние отступы */
+  border: 5px solid #bbf7d0; /* Граница */
+  background: #d1fae5; /* Фон */
+  margin: 0 auto; /* Центрирование */
+}
+
+/* ===== ПОДВАЛ САЙТА ===== */
+
+/* 
+ * ПОДВАЛ - завершающий элемент страницы
+ * ДЛЯ ЧЕГО: Завершить композицию и предоставить дополнительную информацию
+ */
+.footer {
+  text-align: center; /* Центрируем содержимое */
+  padding: var(--spacing-large); /* Просторные отступы */
+  background: var(--card-bg); /* Белый фон для контраста */
+  border-radius: var(--border-radius); /* Скругленные углы */
+  box-shadow: var(--shadow); /* Тень для глубины */
+  margin-top: 40px; /* Отступ от последней секции */
+}
+
+.footer p {
+  font-size: 1.1rem; /* Крупный размер для заметности */
+  color: var(--primary-color); /* Основной цвет */
+  font-weight: 500; /* Средняя толщина */
+}
+
+/* ===== АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ ===== */
+
+/* 
+ * МЕДИА-ЗАПРОСЫ - основа адаптивного дизайна
+ * ДЛЯ ЧЕГО: Оптимизировать отображение для разных размеров экранов
+ * ПОЧЕМУ: Mobile-first подход - большинство пользователей с мобильных
+ * ПРИНЦИП: Progressive enhancement - от мобильного к десктопу
+ */
+
+/* Для экранов меньше 768px (планшеты и телефоны) */
+@media (max-width: 768px) {
+  /* Уменьшаем отступы контейнера для экономии места */
+  .container {
+    padding: var(--spacing-small);
+  }
+
+  /* Уменьшаем размер заголовка для мобильных */
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  /* Уменьшаем отступы секций */
+  .section {
+    padding: var(--spacing-medium);
+  }
+
+  /* Одна колонка в сетке примеров для вертикального скролла */
+  .example-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Вертикальное расположение кнопок вкладок */
+  .tabs-header {
+    flex-direction: column;
+  }
+
+  /* Адаптируем границы кнопок для вертикального расположения */
+  .tab-btn {
+    border-bottom: 1px solid #e2e8f0;
+    border-right: none;
+  }
+
+  /* Одна колонка в примерах вкладок */
+  .tab-examples {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Для экранов меньше 480px (мобильные телефоны) */
+@media (max-width: 480px) {
+  /* Еще больше уменьшаем заголовок для маленьких экранов */
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  /* Уменьшаем отступы демо-блоков */
+  .demo-box {
+    padding: var(--spacing-medium);
+    min-height: 100px;
+  }
+
+  /* Уменьшаем отступы вкладок */
+  .tab-content {
+    padding: var(--spacing-medium);
+  }
+}
